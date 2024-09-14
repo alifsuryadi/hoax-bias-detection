@@ -1,12 +1,19 @@
 # README
 
 ## Deploy Web on Local
+
 ```sh
 pip install -r requirements.txt
 ```
 
 ```sh
 python main.py
+```
+
+> Or
+
+```sh
+python -m website.test
 ```
 
 ## Deploy on Google Cloud Run
