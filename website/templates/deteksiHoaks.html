@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PukulEnam - Deteksi Hoax</title>
+    <link rel="stylesheet" href="../static/css/deteksiHoaks.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="https://pukulenam.id/">
+                <img src="../static/logo/logo.png" alt="PukulEnam Logo">
+            </a>
+            <a href="https://pukulenam.id/"> PukulEnam </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Deteksi Hoaks</a></li>
+                <li><a href="/deteksiBias">Deteksi Bias</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="deteksi-hoaks">
+            <img src="../static/logo/search.png">
+            <h1>Deteksi Hoaks</h1>
+            <p>Validasi berita sebelum anda membacanya</p>
+            <form id="hoaxForm">
+                <label for="title">Judul Berita:</label><br>
+                <input type="text" id="title" name="title" required><br><br>
+                
+                <label for="content">Konten Berita:</label><br>
+                <textarea id="content" name="content" rows="4" required></textarea><br><br>
+                
+                <button type="submit">Cek Sekarang</button>
+            </form>
+        </div>
+    </main>
+
+    <div id="chart">
+        <div id="chart-container">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div id="result-text"></div>
+    </div>
+
+    <script>
+        document.getElementById('hoaxForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Get input values
+            var title = document.getElementById('title').value;
+            var content = document.getElementById('content').value;
+
+            // Prepare data to send
+            var data = {
+                "news_text1": title,
+                "news_text2": content
+            };
+
+            // Send POST request to Flask endpoint
+            fetch('/predictHoaks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                value = data.confidence.toFixed(4) * 100;
+                valueFact = 100 - value;
+
+                // Display Chart
+                const chart = document.getElementById('myChart').getContext('2d');
+                const myChart = new Chart(chart, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Fakta', 'Hoaks'],
+                        datasets: [{
+                            data: [valueFact, value],
+                            backgroundColor: ['#00bfae', '#ff4d4d'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+
+                // Display result
+                var resultDiv = document.getElementById('result-text');
+                if(value > 50){
+                    resultDiv.innerHTML = `<p><strong>${value}% Berita Palsu</strong></p>`
+                } else {
+                    resultDiv.innerHTML = `<p><strong>${valueFact}% Berita Faktual</strong></p>`
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+
+</body>
+</html>

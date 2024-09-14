@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 30px;
+    margin-right: 10px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav li {
+    margin-left: 20px;
+}
+
+nav a {
+    color: #ff6666;
+    text-decoration: none;
+    font-size: medium;
+}
+
+.deteksi-bias {
+    background-color: #ffe6e6;
+    padding: 40px;
+    max-width: 900px;
+    margin: 40px auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.deteksi-bias h1 {
+    color: black;
+    margin-bottom: 10px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: #ff6666;
+    font-size: medium;
+}
+
+.deteksi-bias img {
+    border-radius: 8px;
+    padding: 10px;
+    float: left;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    width: 80px;
+    height: 80px;
+}
+
+.deteksi-bias p {
+    color: #666;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    /* border: 1px outset #ccc; */
+    border-radius: 0px;
+    border: none;
+    border-bottom-style: outset;
+    background-color: #ffe6e6;
+    outline: none;
+}
+
+form button {
+    background-color: #ff6666;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #ff3333;
+}
+
+
+
+#chart-container {
+    width: 400px; /* Set the desired width */
+    height: 400px; /* Set the desired height */
+}
+
+.result-text {
+    margin-top: 20px;
+    background-color: #ffecec;
+    padding: 10px;
+    border: 1px solid #ff7f7f;
+    border-radius: 5px;
+}
+
+#chart {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    margin: 0;
+}
